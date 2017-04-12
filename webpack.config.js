@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'src/build');
+var BUILD_DIR = path.resolve(__dirname, 'src/build/');
 var APP_DIR = path.resolve(__dirname, 'src/app');
 
 module.exports = {
@@ -11,7 +11,8 @@ module.exports = {
     ],
     output: {
         path: BUILD_DIR,
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: 'build/'
     },
     module: {
         loaders: [
@@ -21,8 +22,15 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
-              test: /\.less$/,
-              loader: "style-loader!css-loader!autoprefixer-loader!less-loader"
+                test: /\.less$/,
+                loader: "style-loader!css-loader!autoprefixer-loader!less-loader"
+            },
+            {
+                test: /\.(jpe?g|png|gif)$/i,
+                loader: 'file-loader',
+                options: {
+                    name:'[name].[ext]'
+                }
             },
         ]
     },
