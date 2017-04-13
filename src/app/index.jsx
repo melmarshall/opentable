@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import SearchBar from './components/SearchBar.jsx'
-import ResultsList from './components/ResultsList.jsx'
+import RestaurantList from './components/RestaurantList.jsx'
 
 const restaurants = [
     {
@@ -63,7 +63,7 @@ class App extends React.Component {
         return (
             <div>
                 <SearchBar />
-                <ResultsList results={ restaurants }/>
+                <RestaurantList results={ restaurants } />
             </div>
         );
     }

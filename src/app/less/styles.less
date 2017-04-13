@@ -1,20 +1,55 @@
-.search-panel {
-    margin: 30px auto;
-    width: 500px;
+body {
+    background-color: #F4F6F7;
 
-    .search-bar {
-        height: 40px;
-        width: 400px;
-        border-radius: 5px 0 0 5px;
-        border: 1px solid #ddd;
-        padding: 10px;
-        margin-top: 1px;
+    .search-panel {
+        margin: 30px auto;
+        width: 500px;
+
+        .search-bar {
+            height: 40px;
+            width: 400px;
+            border-radius: 5px 0 0 5px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 1px;
+        }
+
+        .search-submit {
+            height: 40px;
+            width: 70px;
+            border-radius: 0 5px 5px 0;
+            border: none;
+        }
     }
 
-    .search-submit {
-        height: 40px;
-        width: 70px;
-        border-radius: 0 5px 5px 0;
-        border: none;
+    .restaurant-list {
+        .card {
+            width: 50%;
+            height: 30%;
+            margin: 20px auto;
+            border: 1px solid #ddd;;
+            border-radius: 6px;
+            box-shadow: 4px 4px 0 #ddd;
+            background-color: #fff;
+
+            img {
+                height: 100%;
+                display: inline-block;
+                border-radius: 6px 0 0 6px;
+            }
+
+            .info {
+                vertical-align: top;
+                height: 100%;
+                display: inline-block;
+
+                .name {
+                    font-size: 30px;
+                    padding: 10px;
+                    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                }
+            }
+        }
     }
+
 }
