@@ -1,5 +1,4 @@
 body {
-    background-color: #F4F6F7;
 
     .search-panel {
         margin: 30px auto;
@@ -24,18 +23,15 @@ body {
 
     .restaurant-list {
         .card {
-            width: 50%;
-            height: 30%;
+            width: 45%;
+            height: 150px;
             margin: 20px auto;
-            border: 1px solid #ddd;;
-            border-radius: 6px;
-            box-shadow: 4px 4px 0 #ddd;
-            background-color: #fff;
+            border-bottom: 1px solid #ddd;
 
             img {
-                height: 100%;
+                height: 95%;
                 display: inline-block;
-                border-radius: 6px 0 0 6px;
+                border-radius: 6px;
             }
 
             .info {
@@ -44,9 +40,23 @@ body {
                 display: inline-block;
 
                 .name {
-                    font-size: 30px;
+                    font-size: 20px;
                     padding: 10px;
                     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                }
+
+                .price {
+                    padding-left: 10px;
+                    font-size: 15px;
+                    font-weight: bold;
+
+                    .highlighted {
+                        color: #333;
+                    }
+
+                    .non-highlighted {
+                        color: #ddd;
+                    }
                 }
             }
         }
