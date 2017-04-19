@@ -2,16 +2,15 @@ import React from 'react';
 
 class SearchBar extends React.Component {
 
-    constructor(){
-        super();
-
-        this.state = { value: ''};
+    constructor(props){
+        super(props);
 
         this.onSearchSubmit = this.onSearchSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
     onSearchSubmit(){
+        this.props.onSearchSubmit(this.state.value);
     }
 
     handleChange(e){

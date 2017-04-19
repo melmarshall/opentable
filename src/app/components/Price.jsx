@@ -7,11 +7,11 @@ class Price extends React.Component {
         let leftoverDollars = '';
 
         for(var x=0; x < this.props.price; x++){
-            dollarSigns = dollarSigns.concat('$ ');
+            dollarSigns = dollarSigns.concat('$');
         }
 
         for(var x = 0; x < (4 - this.props.price); x++){
-            leftoverDollars = leftoverDollars.concat('$ ');
+            leftoverDollars = leftoverDollars.concat('$');
         }
 
         return (
