@@ -20,7 +20,7 @@ class SearchBar extends React.Component {
     render (){
         return (
             <div className='search-panel'>
-                <input type='text' className='search-bar' placeholder='Enter name of restaurant' onChange={ this.handleChange }/>
+                <input type='text' className='search-bar' placeholder='City or restaurant...' onChange={ this.handleChange }/>
                 <input type='submit' className='search-submit' onClick={ this.onSearchSubmit }/>
             </div>
         );

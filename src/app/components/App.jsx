@@ -18,10 +18,15 @@ class App extends React.Component {
         };
 
         this.onSearchSubmit = this.onSearchSubmit.bind(this);
+        
+        this.onSearchSubmit('San Francisco');
     }
 
     onSearchSubmit(value){
-        fetch('http://opentable.herokuapp.com/api/restaurants?name=' + value)
+        let url = `http:\/\/opentable.herokuapp.com\/api\/restaurants?
+            name=${value}&city=${value}`;
+
+        fetch(url)
             .then(data => data.json())
             .then((data) => {
                 this.setState({
