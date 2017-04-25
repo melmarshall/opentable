@@ -16,16 +16,30 @@ class App extends React.Component {
                 per_page: 0
             }
         };
+        this.baseUrl = `http:\/\/opentable.herokuapp.com\/api\/restaurants?`;
 
         this.onSearchSubmit = this.onSearchSubmit.bind(this);
-        
+        this.onPageTurn = this.onPageTurn.bind(this);
+        this.fetchResults = this.fetchResults.bind(this);
+
+        // default search
         this.onSearchSubmit('San Francisco');
     }
 
     onSearchSubmit(value){
-        let url = `http:\/\/opentable.herokuapp.com\/api\/restaurants?
-            name=${value}&city=${value}`;
+        // TODO: put back restaurant name param
+        this.url = this.baseUrl + `city=${value}`;
 
+        this.fetchResults(this.url);
+    }
+
+    onPageTurn(pageNum){
+        let pageTurnUrl = `${this.url}&page=${pageNum}`;
+
+        this.fetchResults(pageTurnUrl);
+    }
+
+    fetchResults(url){
         fetch(url)
             .then(data => data.json())
             .then((data) => {
@@ -40,11 +54,13 @@ class App extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div>
                 <SearchBar onSearchSubmit={ this.onSearchSubmit }/>
-                <Pagination pageInfo={ this.state.pagination } />
+                <Pagination
+                    pageInfo={ this.state.pagination }
+                    onPageTurn={ this.onPageTurn }
+                />
                 <RestaurantList results={ this.state.restaurants } />
             </div>
         );
