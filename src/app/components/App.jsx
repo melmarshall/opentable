@@ -13,7 +13,8 @@ class App extends React.Component {
             restaurants: [],
             pagination: {
                 total_entries: 0,
-                per_page: 0
+                per_page: 0,
+                current_page: 1
             }
         };
         this.baseUrl = `http:\/\/opentable.herokuapp.com\/api\/restaurants?`;
@@ -47,7 +48,8 @@ class App extends React.Component {
                     restaurants: data.restaurants,
                     pagination: {
                         total_entries: data.total_entries,
-                        per_page: data.per_page
+                        per_page: data.per_page,
+                        current_page: data.current_page
                     }
                 });
             });
