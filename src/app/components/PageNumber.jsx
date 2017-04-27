@@ -12,8 +12,10 @@ class PageNumber extends React.Component {
     }
 
     render(){
+        let pageClass = (this.props.currPage === this.props.i) ? 'selected-page' : 'page-number';
+
         return (
-            <span className='page-number' onClick={this.onPageTurn}>{ this.props.i }</span>
+            <span className={ pageClass } onClick={this.onPageTurn}>{ this.props.i }</span>
         );
     }
 }

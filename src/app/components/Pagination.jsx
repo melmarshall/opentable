@@ -9,6 +9,7 @@ class Pagination extends React.Component {
         this.getBeginning = this.getBeginning.bind(this);
         this.getMiddle = this.getMiddle.bind(this);
         this.getEnd = this.getEnd.bind(this);
+        this.renderPageNumber = this.renderPageNumber.bind(this);
     }
 
     calculateNumPages(){
@@ -26,11 +27,11 @@ class Pagination extends React.Component {
         let begin = [];
 
         for(let i=0; (i < this.numPages && i < 3); i++){
-            begin.push(<PageNumber onPageTurn={this.props.onPageTurn} i={ i+1 } />);
+            begin.push(this.renderPageNumber(i+1));
         }
         if(this.numPages > 3){
             begin.push(<span>...</span>);
-            begin.push(<PageNumber onPageTurn={this.props.onPageTurn} i={ this.numPages } />);
+            begin.push(this.renderPageNumber(this.numPages));
         }
 
         return begin;
@@ -41,13 +42,13 @@ class Pagination extends React.Component {
 
         return (
             <span>
-                <PageNumber onPageTurn={this.props.onPageTurn} i={ 1 } />
+                { this.renderPageNumber(1) }
                 <span>...</span>
-                <PageNumber onPageTurn={this.props.onPageTurn} i={ currPage - 1 } />
-                <PageNumber onPageTurn={this.props.onPageTurn} i={ currPage } />
-                <PageNumber onPageTurn={this.props.onPageTurn} i={ currPage + 1 } />
+                { this.renderPageNumber(currPage - 1) }
+                { this.renderPageNumber(currPage) }
+                { this.renderPageNumber(currPage + 1) }
                 <span>...</span>
-                <PageNumber onPageTurn={this.props.onPageTurn} i={ this.numPages } />
+                { this.renderPageNumber(this.numPages) }
             </span>
         )
     }
@@ -56,10 +57,10 @@ class Pagination extends React.Component {
         let begin = [],
             i = this.numPages - 3;
 
-        begin.push(<PageNumber onPageTurn={this.props.onPageTurn} i={ 1 } />);
+        begin.push(this.renderPageNumber(1));
         begin.push(<span>...</span>);
         while(i < this.numPages){
-            begin.push(<PageNumber onPageTurn={this.props.onPageTurn} i={ i + 1 } />);
+            begin.push(this.renderPageNumber(i + 1));
             i++;
         }
 
@@ -70,10 +71,20 @@ class Pagination extends React.Component {
         let allPages = [];
 
         for(let i = 0; i < this.numPages; i++){
-            allPages.push(<PageNumber onPageTurn={this.props.onPageTurn} i={ i + 1 } />);
+            allPages.push(this.renderPageNumber(i+1));
         }
 
         return allPages;
+    }
+
+    renderPageNumber(index) {
+        return (
+            <PageNumber
+                onPageTurn={ this.props.onPageTurn }
+                i={ index }
+                currPage={ this.props.pageInfo.current_page }
+            />
+        )
     }
 
     render() {
