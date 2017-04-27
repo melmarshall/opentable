@@ -59,11 +59,14 @@ class App extends React.Component {
         return (
             <div>
                 <SearchBar onSearchSubmit={ this.onSearchSubmit }/>
-                <Pagination
-                    pageInfo={ this.state.pagination }
-                    onPageTurn={ this.onPageTurn }
-                />
-                <RestaurantList results={ this.state.restaurants } />
+
+                <div className='results-content'>
+                    <Pagination
+                        pageInfo={ this.state.pagination }
+                        onPageTurn={ this.onPageTurn }
+                    />
+                    <RestaurantList results={ this.state.restaurants } />
+                </div>
             </div>
         );
     }

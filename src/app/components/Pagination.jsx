@@ -1,10 +1,10 @@
 import React from 'react';
+import PageNumber from './PageNumber.jsx'
 
 class Pagination extends React.Component {
     constructor(props){
         super(props);
 
-        this.onPageTurn = this.onPageTurn.bind(this);
         this.calculateNumPages = this.calculateNumPages.bind(this);
         this.getBeginning = this.getBeginning.bind(this);
         this.getMiddle = this.getMiddle.bind(this);
@@ -21,19 +21,16 @@ class Pagination extends React.Component {
         this.numPages = numPages;
     }
 
-    onPageTurn(e){
-        this.props.onPageTurn(e.currentTarget.innerText);
-    }
 
     getBeginning(){
         let begin = [];
 
         for(let i=0; (i < this.numPages && i < 3); i++){
-            begin.push(<span onClick={this.onPageTurn}>{ i+1 }</span>)
+            begin.push(<PageNumber onPageTurn={this.props.onPageTurn} i={ i+1 } />);
         }
         if(this.numPages > 3){
             begin.push(<span>...</span>);
-            begin.push(<span onClick={this.onPageTurn}>{ this.numPages }</span>);
+            begin.push(<PageNumber onPageTurn={this.props.onPageTurn} i={ this.numPages } />);
         }
 
         return begin;
@@ -44,13 +41,13 @@ class Pagination extends React.Component {
 
         return (
             <span>
-                <span onClick={this.onPageTurn}>1</span>
+                <PageNumber onPageTurn={this.props.onPageTurn} i={ 1 } />
                 <span>...</span>
-                <span onClick={this.onPageTurn}>{ currPage - 1}</span>
-                <span onClick={this.onPageTurn}>{ currPage }</span>
-                <span onClick={this.onPageTurn}>{currPage + 1}</span>
+                <PageNumber onPageTurn={this.props.onPageTurn} i={ currPage - 1 } />
+                <PageNumber onPageTurn={this.props.onPageTurn} i={ currPage } />
+                <PageNumber onPageTurn={this.props.onPageTurn} i={ currPage + 1 } />
                 <span>...</span>
-                <span onClick={this.onPageTurn}>{ this.numPages }</span>
+                <PageNumber onPageTurn={this.props.onPageTurn} i={ this.numPages } />
             </span>
         )
     }
@@ -59,10 +56,10 @@ class Pagination extends React.Component {
         let begin = [],
             i = this.numPages - 3;
 
-        begin.push(<span onClick={this.onPageTurn}>1</span>);
+        begin.push(<PageNumber onPageTurn={this.props.onPageTurn} i={ 1 } />);
         begin.push(<span>...</span>);
         while(i < this.numPages){
-            begin.push(<span onClick={this.onPageTurn}>{ i+1 }</span>);
+            begin.push(<PageNumber onPageTurn={this.props.onPageTurn} i={ i + 1 } />);
             i++;
         }
 
@@ -73,7 +70,7 @@ class Pagination extends React.Component {
         let allPages = [];
 
         for(let i = 0; i < this.numPages; i++){
-            allPages.push(<span onClick={this.onPageTurn}>{i + 1}</span>);
+            allPages.push(<PageNumber onPageTurn={this.props.onPageTurn} i={ i + 1 } />);
         }
 
         return allPages;
@@ -81,7 +78,7 @@ class Pagination extends React.Component {
 
     render() {
         this.calculateNumPages();
-        
+
         let currPage = this.props.pageInfo.current_page,
             lastPages = this.numPages - 2;
 
