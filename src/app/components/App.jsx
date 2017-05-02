@@ -11,6 +11,8 @@ class App extends React.Component {
         this.state = {
             value: '',
             restaurants: [],
+            showScroll: false,
+            toggleText: 'Infinite Scroll',
             pagination: {
                 total_entries: 0,
                 per_page: 0,
@@ -20,6 +22,7 @@ class App extends React.Component {
         this.baseUrl = `http:\/\/opentable.herokuapp.com\/api\/restaurants?`;
 
         this.onSearchSubmit = this.onSearchSubmit.bind(this);
+        this.toggleScroll = this.toggleScroll.bind(this);
         this.onPageTurn = this.onPageTurn.bind(this);
         this.fetchResults = this.fetchResults.bind(this);
 
@@ -32,6 +35,13 @@ class App extends React.Component {
         this.url = this.baseUrl + `city=${value}`;
 
         this.fetchResults(this.url);
+    }
+
+    toggleScroll(){
+        this.setState((prev, props) => ({
+            showScroll: !prev.showScroll,
+            toggleText: prev.toggleText === 'Infinite Scroll' ? 'Pagination' : 'Infinite Scroll'
+        }));
     }
 
     onPageTurn(pageNum){
@@ -56,11 +66,14 @@ class App extends React.Component {
     }
 
     render() {
+        console.log(this.state.showScroll);
         return (
             <div>
                 <SearchBar onSearchSubmit={ this.onSearchSubmit }/>
 
                 <div className='results-content'>
+                    <div className='scroll-toggle' onClick={this.toggleScroll}>{ this.state.toggleText }</div>
+
                     <Pagination
                         pageInfo={ this.state.pagination }
                         onPageTurn={ this.onPageTurn }
