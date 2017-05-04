@@ -42,6 +42,8 @@ class App extends React.Component {
             showScroll: !prev.showScroll,
             toggleText: prev.toggleText === 'Infinite Scroll' ? 'Pagination' : 'Infinite Scroll'
         }));
+
+        this.onPageTurn(1);
     }
 
     onPageTurn(pageNum){
@@ -54,31 +56,37 @@ class App extends React.Component {
         fetch(url)
             .then(data => data.json())
             .then((data) => {
-                this.setState({
-                    restaurants: data.restaurants,
+                this.setState((prev, props) => ({
+                    restaurants: prev.showScroll ? prev.restaurants.concat(data.restaurants) : data.restaurants,
                     pagination: {
                         total_entries: data.total_entries,
                         per_page: data.per_page,
                         current_page: data.current_page
                     }
-                });
+                }));
             });
     }
 
     render() {
-        console.log(this.state.showScroll);
         return (
             <div>
+                <div className='scroll-toggle' onClick={this.toggleScroll}>{ this.state.toggleText }</div>
+
                 <SearchBar onSearchSubmit={ this.onSearchSubmit }/>
 
                 <div className='results-content'>
-                    <div className='scroll-toggle' onClick={this.toggleScroll}>{ this.state.toggleText }</div>
-
-                    <Pagination
-                        pageInfo={ this.state.pagination }
-                        onPageTurn={ this.onPageTurn }
+                    { !this.state.showScroll &&
+                        <Pagination
+                            pageInfo={ this.state.pagination }
+                            onPageTurn={ this.onPageTurn }
+                        />
+                    }
+                    <RestaurantList
+                        results={ this.state.restaurants }
+                        onScroll={ this.onPageTurn }
+                        currPage={ this.state.pagination.current_page }
+                        showScroll={ this.state.showScroll }
                     />
-                    <RestaurantList results={ this.state.restaurants } />
                 </div>
             </div>
         );
