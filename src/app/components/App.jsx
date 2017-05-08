@@ -25,9 +25,20 @@ class App extends React.Component {
         this.toggleScroll = this.toggleScroll.bind(this);
         this.onPageTurn = this.onPageTurn.bind(this);
         this.fetchResults = this.fetchResults.bind(this);
+        this.calculateNumPages = this.calculateNumPages.bind(this);
 
         // default search
-        this.onSearchSubmit('San Francisco');
+        this.onSearchSubmit('oxnard');
+    }
+
+    calculateNumPages(){
+        let numPages = Math.round(this.state.pagination.total_entries / this.state.pagination.per_page);
+
+        if((this.state.pagination.total_entries % this.state.pagination.per_page) > 0){
+            numPages = numPages + 1;
+        }
+
+        return numPages;
     }
 
     onSearchSubmit(value){
@@ -77,14 +88,15 @@ class App extends React.Component {
                 <div className='results-content'>
                     { !this.state.showScroll &&
                         <Pagination
-                            pageInfo={ this.state.pagination }
+                            numPages={ this.calculateNumPages() }
+                            currentPage={ this.state.pagination.current_page}
                             onPageTurn={ this.onPageTurn }
                         />
                     }
                     <RestaurantList
                         results={ this.state.restaurants }
                         onScroll={ this.onPageTurn }
-                        currPage={ this.state.pagination.current_page }
+                        pagination={ this.state.pagination }
                         showScroll={ this.state.showScroll }
                     />
                 </div>

@@ -21,7 +21,7 @@ class RestaurantList extends React.Component {
                 scrollHeight = currScroll + visibleHeight;
 
             if (totalHeight <= scrollHeight) {
-                this.props.onScroll(this.props.currPage + 1);
+                this.props.onScroll(this.props.currentPage + 1);
             }
         }
     }
