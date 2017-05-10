@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SearchBar from './SearchBar.jsx'
-import RestaurantList from './RestaurantList.jsx'
-import Pagination from './Pagination.jsx'
+import SearchBar from './SearchBar'
+import RestaurantList from './RestaurantList'
+import Pagination from './Pagination'
 
 class App extends React.Component {
     constructor(props){
@@ -12,7 +12,6 @@ class App extends React.Component {
             value: '',
             restaurants: [],
             showScroll: false,
-            toggleText: 'Infinite Scroll',
             pagination: {
                 total_entries: 0,
                 per_page: 0,
@@ -28,7 +27,7 @@ class App extends React.Component {
         this.calculateNumPages = this.calculateNumPages.bind(this);
 
         // default search
-        this.onSearchSubmit('oxnard');
+        this.onSearchSubmit('San Francisco');
     }
 
     calculateNumPages(){
@@ -42,7 +41,7 @@ class App extends React.Component {
     }
 
     onSearchSubmit(value){
-        // TODO: put back restaurant name param
+        // using the city param for more interesting results to play with
         this.url = this.baseUrl + `city=${value}`;
 
         this.fetchResults(this.url);
@@ -54,7 +53,6 @@ class App extends React.Component {
             .then((data) => {
                 this.setState((prev, props) => ({
                     showScroll: !prev.showScroll,
-                    toggleText: prev.toggleText === 'Infinite Scroll' ? 'Pagination' : 'Infinite Scroll',
                     restaurants: data.restaurants
                 }));
             });
@@ -91,11 +89,12 @@ class App extends React.Component {
     }
 
     render() {
-        let numPages = this.calculateNumPages();
+        let numPages = this.calculateNumPages(),
+            toggleText = this.state.showScroll ? 'Pagination' : 'Infinite Scroll';
 
         return (
             <div>
-                <div className='scroll-toggle' onClick={this.toggleScroll}>{ this.state.toggleText }</div>
+                <div className='scroll-toggle' onClick={this.toggleScroll}>{ toggleText }</div>
 
                 <SearchBar onSearchSubmit={ this.onSearchSubmit }/>
 

@@ -1,6 +1,5 @@
 body {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-
     img {
         height: 95%;
         display: inline-block;
@@ -17,48 +16,73 @@ body {
         background-color: dimgrey;
         color: white;
         cursor: pointer;
-        margin-right: 20px;
+        margin: 420px 20px 0 0;
     }
 
     .search-panel {
         margin: 30px auto;
-        width: 560px;
+        width: 100%;
+        height: 400px;
+        background-image: url(../img/restaurant.jpeg);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: relative;
 
-        .search-bar {
-            height: 45px;
-            width: 450px;
-            border-radius: 5px 0 0 5px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-top: 1px;
-            font-size: 14px;
-        }
+        .search-container {
+            height: 200px;
+            width: 700px;
+            background-color: white;
+            border-radius: 5px;
+            position: absolute;
+            bottom: -40px;
+            left: 20px;
+            box-shadow: 0 1px 0 rgba(0,0,0,.1);
 
-        .search-submit {
-            height: 44px;
-            width: 100px;
-            border-radius: 0 5px 5px 0;
-            border: none;
-            font-size: 14px;
+            ::-webkit-input-placeholder { color:#ccc; font-size: 16px;}
+            ::-moz-placeholder { color:#ccc; font-size: 16px; } /* firefox 19+ */
+            input:-moz-placeholder { color:#ccc; font-size: 16px; }
+
+            .search-text {
+                margin: 30px 0 0 20px;
+                font-size: 32px;
+            }
+
+            .search-bar {
+                height: 55px;
+                width: 550px;
+                border-radius: 5px 0 0 5px;
+                border: 1px solid #ddd;
+                padding: 10px;
+                margin: 35px 0 0 20px;
+                font-size: 14px;
+            }
+
+            .search-submit {
+                height: 54px;
+                width: 100px;
+                border-radius: 0 5px 5px 0;
+                border: none;
+                font-size: 15px;
+                color: white;
+                background-color: #da3743;
+            }
         }
     }
 
     .results-content {
         width: 65%;
-        margin: 0 auto;
+        margin: 90px;
 
         .page-number-list {
             float: right;
 
             .page-number {
-                color: blue;
                 cursor: pointer;
                 padding: 3px;
                 font-size: 18px;
             }
 
             .selected-page {
-                color: blue;
                 cursor: pointer;
                 padding: 3px;
                 font-weight: bold;
