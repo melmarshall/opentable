@@ -49,18 +49,30 @@ class App extends React.Component {
     }
 
     toggleScroll(){
-        this.setState((prev, props) => ({
-            showScroll: !prev.showScroll,
-            toggleText: prev.toggleText === 'Infinite Scroll' ? 'Pagination' : 'Infinite Scroll'
-        }));
-
-        this.onPageTurn(1);
+        fetch(this.url)
+            .then(data => data.json())
+            .then((data) => {
+                this.setState((prev, props) => ({
+                    showScroll: !prev.showScroll,
+                    toggleText: prev.toggleText === 'Infinite Scroll' ? 'Pagination' : 'Infinite Scroll',
+                    restaurants: data.restaurants
+                }));
+            });
     }
 
-    onPageTurn(pageNum){
+    onPageTurn(pageNum, toggle){
         let pageTurnUrl = `${this.url}&page=${pageNum}`;
 
-        this.fetchResults(pageTurnUrl);
+        fetch(pageTurnUrl)
+            .then(data => data.json())
+            .then((data) => {
+                this.setState((prev, props) => ({
+                    restaurants: prev.showScroll ? prev.restaurants.concat(data.restaurants) : data.restaurants,
+                    pagination: {
+                        current_page: data.current_page
+                    }
+                }));
+            });
     }
 
     fetchResults(url){
@@ -68,7 +80,7 @@ class App extends React.Component {
             .then(data => data.json())
             .then((data) => {
                 this.setState((prev, props) => ({
-                    restaurants: prev.showScroll ? prev.restaurants.concat(data.restaurants) : data.restaurants,
+                    restaurants: data.restaurants,
                     pagination: {
                         total_entries: data.total_entries,
                         per_page: data.per_page,
@@ -79,6 +91,8 @@ class App extends React.Component {
     }
 
     render() {
+        let numPages = this.calculateNumPages();
+
         return (
             <div>
                 <div className='scroll-toggle' onClick={this.toggleScroll}>{ this.state.toggleText }</div>
@@ -88,7 +102,7 @@ class App extends React.Component {
                 <div className='results-content'>
                     { !this.state.showScroll &&
                         <Pagination
-                            numPages={ this.calculateNumPages() }
+                            numPages={ numPages }
                             currentPage={ this.state.pagination.current_page}
                             onPageTurn={ this.onPageTurn }
                         />
@@ -96,7 +110,8 @@ class App extends React.Component {
                     <RestaurantList
                         results={ this.state.restaurants }
                         onScroll={ this.onPageTurn }
-                        pagination={ this.state.pagination }
+                        currentPage={ this.state.pagination.current_page }
+                        numPages = { numPages }
                         showScroll={ this.state.showScroll }
                     />
                 </div>
